@@ -99,11 +99,10 @@
     color:  #dc1a20f5;
   }
   
-  .input100:focus + .focus-input100 {
+ .input100:focus + .focus-input100   {
     -webkit-animation: anim-shadow 0.5s ease-in-out forwards;
     animation: anim-shadow 0.5s ease-in-out forwards;
   }
-  
   @-webkit-keyframes anim-shadow {
     to {
       box-shadow: 0px 0px 25px 25px;
@@ -219,7 +218,10 @@
     }
   
     .login100-pic {
-      display: none;
+        max-width: 33%;
+        width: 100%;
+        margin-left: 33%;
+        margin-bottom: 5%;
     }
   
     .login100-form {
