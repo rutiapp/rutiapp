@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-
 import AuthService from "./services/auth.service";
-
 import Login from "./components/Login";
-import Register from "./components/Register";
 import Home from "./pages/Home";
-import Profile from "./components/Profile";
 import BoardUser from "./pages/BoardUser";
 import BoardAdmin from "./pages/BoardAdmin";
-
 import EventBus from "./common/EventBus";
+import SignUp from "./pages/SignUp";
+import Dashboard from "./pages/Dashboard";
+import MyRoutines from "./pages/MyRoutines";
+import MyDashBoard from "./pages/MyDashboard";
+import MyExersises from "./pages/MyExersises";
+import CreateExersise from "./components/CreateExersise";
 
 const App = () => {
   const [showAdminBoard, setShowAdminBoard] = useState(false);
@@ -42,15 +43,22 @@ const App = () => {
 
   return (
     <div>
-        <Routes>
-          <Route path="/" element={<Home/>} />
-          <Route path="/home" element={<Home/>} />
-          <Route path="/login" element={<Login/>} />
-          <Route path="/register" element={<Register/>} />
-          <Route path="/profile" element={<Profile/>} />
-          <Route path="/user" element={<BoardUser/>} />
-          <Route path="/admin" element={<BoardAdmin/>} />
-        </Routes>
+          <Routes>
+            <Route path="/" element={<Home/>} />
+            <Route path="/home" element={<Home/>} />
+            <Route path="/login" element={<Login/>} />
+            <Route path="/register" element={<SignUp/>} />
+            <Route path='dashboard' element={<Dashboard />}>
+                    <Route path='my' element={<MyDashBoard />} />
+                    <Route path='myroutines' element={<MyRoutines />} />
+                    <Route path='myexersises' element={<MyExersises />} >
+                      <Route path='create' element={<CreateExersise />} />
+                    </Route>
+            </Route>
+            <Route path="/user" element={<BoardUser/>} />
+            <Route path="/admin" element={<BoardAdmin/>} />
+            <Route path="/myroutines" element={<MyRoutines/>} />
+          </Routes>
       </div>
   );
 };

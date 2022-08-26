@@ -23,7 +23,6 @@
     background: #fff;
     border-radius: 10px;
     overflow: hidden;
-  
     display: -webkit-box;
     display: -webkit-flex;
     display: -moz-box;
@@ -32,6 +31,21 @@
     flex-wrap: wrap;
     justify-content: space-between;
     padding: 177px 130px 33px 95px;
+  }
+
+  .wrap-register100 {
+    width: 960px;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 100px 130px 33px 95px;
   }
 
   .login100-pic {
@@ -202,6 +216,10 @@
     .wrap-login100 {
       padding: 177px 90px 33px 85px;
     }
+
+    .wrap-register100 {
+      padding: 100px 90px 33px 85px;
+    }
   
     .login100-pic {
       width: 35%;
@@ -215,6 +233,10 @@
   @media (max-width: 768px) {
     .wrap-login100 {
       padding: 100px 80px 33px 80px;
+    }
+
+    .wrap-register100 {
+      padding: 40px 80px 33px 80px;
     }
   
     .login100-pic {
@@ -232,6 +254,10 @@
   @media (max-width: 576px) {
     .wrap-login100 {
       padding: 100px 15px 33px 15px;
+    }
+
+    .wrap-register100 {
+      padding: 40px 15px 33px 15px;
     }
   }
   

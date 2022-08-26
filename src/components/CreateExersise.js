@@ -2,98 +2,48 @@ import React, { useState, useRef } from "react";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
-import { isEmail } from "validator";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faLock, faUser} from '@fortawesome/free-solid-svg-icons'
 import {Link} from 'react-router-dom'
-
-import AuthService from "../services/auth.service";
-
-const required = (value) => {
-  if (!value) {
-    return (
-      <div className="alert alert-danger" role="alert">
-        Este campo es obligatorio!
-      </div>
-    );
-  }
-};
-
-const validEmail = (value) => {
-  if (!isEmail(value)) {
-    return (
-      <div className="alert alert-danger" role="alert">
-        El email no tiene un formato válido.
-      </div>
-    );
-  }
-};
-
-const vusername = (value) => {
-  if (value.length < 3 || value.length > 20) {
-    return (
-      <div className="alert alert-danger" role="alert">
-        El nombre de usuario tiene que estar entre 3 y 20 carácteres.
-      </div>
-    );
-  }
-};
-
-const vpassword = (value) => {
-  if (value.length < 8 || value.length > 40) {
-    return (
-      <div className="alert alert-danger" role="alert">
-        La longitud de la contraseña debe estar entre 8 y 40 carácteres.
-      </div>
-    );
-  }
-};
-
-const Register = () => {
+import ExersiseService from "../services/exersise.service"
+const CreateExersise = () => {
   const form = useRef();
   const checkBtn = useRef();
-
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [name, setName] = useState("");
-  const [surname, setSurname] = useState("");
-  const [photo_url, setPhotoUrl] = useState("");
+  const [video_url, setVideo_Url] = useState("");
+  const [series, setSeries] = useState("");
+  const [repetitions, setRepetitions] = useState("");
+  const [help_url, setHelp_Url] = useState("");
   const [successful, setSuccessful] = useState(false);
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
-
-  const onChangeUsername = (e) => {
-    const username = e.target.value;
-    setUsername(username);
-  };
-
-  const onChangeEmail = (e) => {
-    const email = e.target.value;
-    setEmail(email);
-  };
-
-  const onChangePassword = (e) => {
-    const password = e.target.value;
-    setPassword(password);
-  };
 
   const onChangeName = (e) => {
     const name = e.target.value;
     setName(name);
   };
 
-  const onChangeSurname = (e) => {
-    const surname = e.target.value;
-    setSurname(surname);
+  const onChangeVideo_Url = (e) => {
+    const video_url = e.target.value;
+    setVideo_Url(video_url);
   };
 
-  const onChangePhotoUrl = (e) => {
-    const photo_url = e.target.value;
-    setPhotoUrl(photo_url);
+  const onChangeSeries = (e) => {
+    const series = e.target.value;
+    setSeries(series);
   };
 
-  const handleRegister = (e) => {
+  const onChangeRepetitions = (e) => {
+    const repetitions = e.target.value;
+    setRepetitions(repetitions);
+  };
+
+  const onChangeHelp_Url = (e) => {
+    const help_url = e.target.value;
+    setHelp_Url(help_url);
+  };
+
+  const handleCreate = (e) => {
     e.preventDefault();
     setLoading(true);
     setMessage("");
@@ -102,7 +52,7 @@ const Register = () => {
     form.current.validateAll();
 
     if (checkBtn.current.context._errors.length === 0) {
-      AuthService.register(username, email, password, name, surname, photo_url).then(
+        ExersiseService.create(name, video_url, series, repetitions, help_url).then(
         (response) => {
           setMessage(response.data.message);
           setSuccessful(true);
@@ -122,20 +72,18 @@ const Register = () => {
       );
     }
   };
-
   return (
-
-        <Form onSubmit={handleRegister} ref={form} className="login100-form validate-form">
+    <Form onSubmit={handleCreate} ref={form} className="create100-form validate-form">
           {!successful && (
             <div>
           <div className="wrap-input100 validate-input" >
              <Input
               type="text"
               className="input100"
-              name="username"
-              value={username}
-              onChange={onChangeUsername}
-              placeholder="Nombre de usuario"
+              name="name"
+              value={name}
+              onChange={onChangeName}
+              placeholder="Nombre del ejercicio"
             />
             <span className="focus-input100" />
             <span className="symbol-input100">
@@ -148,10 +96,9 @@ const Register = () => {
                   type="text"
                   className="input100"
                   name="email"
-                  value={email}
-                  onChange={onChangeEmail}
-                  validations={[required, validEmail]}
-                  placeholder="Email"
+                  value={video_url}
+                  onChange={onChangeVideo_Url}
+                  placeholder="Url del video de demostración"
                 />
                 <span className="focus-input100" />
                 <span className="symbol-input100">
@@ -161,12 +108,12 @@ const Register = () => {
 
               <div className="wrap-input100 validate-input" >
                 <Input
-                  type="password"
+                  type="text"
                   className="input100"
-                  name="password"
-                  value={password}
-                  onChange={onChangePassword}
-                  placeholder="Contraseña"
+                  name="series"
+                  value={series}
+                  onChange={onChangeSeries}
+                  placeholder="Numero de series"
                 />
                 <span className="focus-input100" />
                 <span className="symbol-input100">
@@ -178,11 +125,10 @@ const Register = () => {
                 <Input
                   type="text"
                   className="input100"
-                  name="name"
-                  value={name}
-                  onChange={onChangeName}
-                  validations={[required]}
-                  placeholder="Nombre"
+                  name="repetitions"
+                  value={repetitions}
+                  onChange={onChangeRepetitions}
+                  placeholder="Numero de repeticiones"
                 />
                 <span className="focus-input100" />
                 <span className="symbol-input100">
@@ -194,39 +140,22 @@ const Register = () => {
                 <Input
                   type="text"
                   className="input100"
-                  name="surname"
-                  value={surname}
-                  onChange={onChangeSurname}
-                  validations={[required]}
-                  placeholder="Apellidos"
+                  name="help_url"
+                  value={help_url}
+                  onChange={onChangeHelp_Url}
+                  placeholder="Url de ayuda"
                 />
                 <span className="focus-input100" />
                 <span className="symbol-input100">
                   <FontAwesomeIcon icon={faUser} />
                 </span>
               </div>
-
-              <div className="wrap-input100 validate-input" >
-                <Input
-                  type="text"
-                  className="input100"
-                  name="photo_url"
-                  value={photo_url}
-                  onChange={onChangePhotoUrl}
-                  placeholder="Url de la imagen de perfil"
-                />
-                <span className="focus-input100" />
-                <span className="symbol-input100">
-                  <FontAwesomeIcon icon={faUser} />
-                </span>
-              </div>
-
               <div className="container-login100-form-btn">
             <button className="login100-form-btn" disabled={loading}>
               {loading && (
                 <span className=" m-r-5 spinner-border spinner-border-sm"></span>
               )}
-              <span>¡Registrate!</span>
+              <span>¡Crear Ejercicio!</span>
             </button>
           </div>
             </div>
@@ -253,5 +182,4 @@ const Register = () => {
         </Form>
   );
 };
-
-export default Register;
+export default CreateExersise;

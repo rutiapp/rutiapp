@@ -5,7 +5,7 @@ import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import AuthService from "../services/auth.service";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEnvelope, faLock, faLongArrowRight} from '@fortawesome/free-solid-svg-icons'
+import { faUser, faLock, faLongArrowRight} from '@fortawesome/free-solid-svg-icons'
 const Login = () => {
   let navigate = useNavigate();
   const form = useRef();
@@ -30,7 +30,7 @@ const Login = () => {
     if (checkBtn.current.context._errors.length === 0) {
       AuthService.login(username, password).then(
         () => {
-          navigate("/profile");
+          navigate("/dashboard");
           window.location.reload();
         },
         (error) => {
@@ -64,7 +64,7 @@ const Login = () => {
             />
             <span className="focus-input100" />
             <span className="symbol-input100">
-              <FontAwesomeIcon icon={faEnvelope} />
+              <FontAwesomeIcon icon={faUser} />
             </span>
           </div>
           <div className="wrap-input100 validate-input" >
