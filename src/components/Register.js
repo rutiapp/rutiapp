@@ -27,27 +27,7 @@ const validEmail = (value) => {
       </div>
     );
   }
-};
-
-const vusername = (value) => {
-  if (value.length < 3 || value.length > 20) {
-    return (
-      <div className="alert alert-danger" role="alert">
-        El nombre de usuario tiene que estar entre 3 y 20 carácteres.
-      </div>
-    );
-  }
-};
-
-const vpassword = (value) => {
-  if (value.length < 8 || value.length > 40) {
-    return (
-      <div className="alert alert-danger" role="alert">
-        La longitud de la contraseña debe estar entre 8 y 40 carácteres.
-      </div>
-    );
-  }
-};
+}
 
 const Register = () => {
   const form = useRef();
@@ -236,7 +216,7 @@ const Register = () => {
             <div className="form-group">
               <div
                 className={
-                  successful ? "alert alert-success" : "alert alert-danger"
+                  successful ? "alert alert-success bold" : "alert alert-danger"
                 }
                 role="alert"
               >

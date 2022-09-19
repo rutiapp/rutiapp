@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import AuthService from "./services/auth.service";
@@ -14,18 +14,13 @@ import MyRoutines from "./pages/MyRoutines";
 import MyDashBoard from "./pages/MyDashboard";
 import MyExersises from "./pages/MyExersises";
 import CreateExersise from "./components/CreateExersise";
+import MyExersisesList from "./components/MyExersisesList";
+import ViewExersise from "./components/ViewExersise";
+import CreateWeight from "./components/CreateWeight";
 
 const App = () => {
-  const [showAdminBoard, setShowAdminBoard] = useState(false);
-  const [currentUser, setCurrentUser] = useState(undefined);
 
   useEffect(() => {
-    const user = AuthService.getCurrentUser();
-    if (user) {
-      setCurrentUser(user);
-      setShowAdminBoard(user.roles.includes("ROLE_ADMIN"));
-    }
-
     EventBus.on("logout", () => {
       logOut();
     });
@@ -37,8 +32,6 @@ const App = () => {
 
   const logOut = () => {
     AuthService.logout();
-    setShowAdminBoard(false);
-    setCurrentUser(undefined);
   };
 
   return (
@@ -52,7 +45,10 @@ const App = () => {
                     <Route path='my' element={<MyDashBoard />} />
                     <Route path='myroutines' element={<MyRoutines />} />
                     <Route path='myexersises' element={<MyExersises />} >
+                      <Route path='' element={<MyExersisesList />} />
                       <Route path='create' element={<CreateExersise />} />
+                      <Route path='view/:id' element={<ViewExersise />} />
+                      <Route path='addWeight/:idExersise' element={<CreateWeight />} />
                     </Route>
             </Route>
             <Route path="/user" element={<BoardUser/>} />

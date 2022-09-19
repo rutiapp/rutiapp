@@ -30,8 +30,7 @@ const Login = () => {
     if (checkBtn.current.context._errors.length === 0) {
       AuthService.login(username, password).then(
         () => {
-          navigate("/dashboard");
-          window.location.reload();
+          navigate("/dashboard/my");
         },
         (error) => {
           const resMessage =
@@ -93,7 +92,7 @@ const Login = () => {
             <span className="txt1">
               ¿No tienes usuario?
             </span>
-            <a className="txt1 m-l-5" href="/register">
+            <a className="txt1 m-l-5 home-link" href="/register">
               Crea tu cuenta
               <i className="fa fa-long-arrow-right m-l-5" aria-hidden="true" />
               <FontAwesomeIcon icon={faLongArrowRight} />

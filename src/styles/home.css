@@ -30,7 +30,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    padding: 177px 130px 33px 95px;
+    padding: 37px 130px 33px 95px;
   }
 
   .wrap-register100 {
@@ -203,6 +203,7 @@
   
   .login100-form-btn:hover {
     background: #333333;
+    color: white;
   }
   
   
@@ -327,4 +328,13 @@
       visibility: visible;
       opacity: 1;
     }
+  }
+
+  .home-link {
+    color: black !important;
+    font-weight: bold;
+  }
+
+  .home-link:hover {
+    color: #dc1a22 !important;
   }

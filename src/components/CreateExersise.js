@@ -1,10 +1,9 @@
-import React, { useState, useRef } from "react";
+import { useState, useRef } from "react";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faLock, faUser} from '@fortawesome/free-solid-svg-icons'
-import {Link} from 'react-router-dom'
 import ExersiseService from "../services/exersise.service"
 const CreateExersise = () => {
   const form = useRef();
@@ -54,7 +53,8 @@ const CreateExersise = () => {
     if (checkBtn.current.context._errors.length === 0) {
         ExersiseService.create(name, video_url, series, repetitions, help_url).then(
         (response) => {
-          setMessage(response.data.message);
+          const exersiseCreated = "Ejercicio creado correctamente"
+          setMessage(exersiseCreated);
           setSuccessful(true);
           setLoading(false);
         },
@@ -165,16 +165,11 @@ const CreateExersise = () => {
             <div className="form-group">
               <div
                 className={
-                  successful ? "alert alert-success" : "alert alert-danger"
+                  successful ? "alert alert-success bold" : "alert alert-danger"
                 }
                 role="alert"
               >
                 {message}
-              </div>
-              <div>
-              <Link to="/" className="login100-form-btn" disabled={loading}>
-              <span>Inicio de sesión</span>
-            </Link>
               </div>
             </div>
           )}

@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import UserService from "../services/user.service";
+import React, { useEffect } from "react";
 import "../App.css";
 import "../styles/utils.css";
 import "../styles/home.css";
@@ -8,14 +7,6 @@ import Login from "../components/Login";
 
 const Home = () => {
   useEffect(() => {
-    UserService.getPublicContent().then(
-      (response) => {
-        //setContent(response.data);
-      },
-      (error) => {
-        //setContent(_content);
-      }
-    );
   }, []);
   return (
     <div className="limiter">
