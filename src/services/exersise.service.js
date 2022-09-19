@@ -1,7 +1,8 @@
 import axios from "axios";
 import authHeader from "./auth-header";
 import AuthService from "../services/auth.service";
-const API_URL = "http://localhost:8080/api/exersises/";
+const { API_HOST, API_PORT } = process.env
+const API_URL = API_HOST+":"+API_PORT+"/api/exersises/"
 const getAll = () => {
   return axios.get(API_URL + "findAll" , { headers: authHeader() });
 }

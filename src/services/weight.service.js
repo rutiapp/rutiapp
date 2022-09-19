@@ -1,7 +1,8 @@
 import axios from "axios";
 import authHeader from "./auth-header";
 import AuthService from "../services/auth.service";
-const API_URL = "http://localhost:8080/api/weights/";
+const { API_HOST, API_PORT } = process.env
+const API_URL = API_HOST+":"+API_PORT+"/api/weights/"
 let userId = null
 if(AuthService.getCurrentUser()) {
   userId = AuthService.getCurrentUser().id;
