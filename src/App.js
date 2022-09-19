@@ -5,8 +5,6 @@ import "./App.css";
 import AuthService from "./services/auth.service";
 import Login from "./components/Login";
 import Home from "./pages/Home";
-import BoardUser from "./pages/BoardUser";
-import BoardAdmin from "./pages/BoardAdmin";
 import EventBus from "./common/EventBus";
 import SignUp from "./pages/SignUp";
 import Dashboard from "./pages/Dashboard";
@@ -51,8 +49,6 @@ const App = () => {
                       <Route path='addWeight/:idExersise' element={<CreateWeight />} />
                     </Route>
             </Route>
-            <Route path="/user" element={<BoardUser/>} />
-            <Route path="/admin" element={<BoardAdmin/>} />
             <Route path="/myroutines" element={<MyRoutines/>} />
           </Routes>
       </div>
