@@ -26930,7 +26930,7 @@
   }
 .btn-rutiapp {
         font-family: Montserrat-Bold;
-        font-size: 15px;
+        font-size: 1em;
         line-height: 1.5;
         color: #fff;
         text-transform: uppercase;
@@ -26940,12 +26940,11 @@
         justify-content: center;
         align-items: center;
         padding: 0 25px;
-      
         -webkit-transition: all 0.4s;
         -o-transition: all 0.4s;
         -moz-transition: all 0.4s;
         transition: all 0.4s;
-      }
+}
       
 .btn-rutiapp:hover {
         background: #333333;
@@ -27009,4 +27008,14 @@
 
 .z-index-0 {
   z-index: 0;
+}
+
+@media (max-width: 480px) {
+
+  .my-routines-table-header {
+    display: inline-flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+  
 }

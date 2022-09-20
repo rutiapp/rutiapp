@@ -33,8 +33,8 @@ const UserBar = () => {
             <div className="container-fluid py-1 px-3">
             <div className="navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
                 <nav>
-                    <Link to="/dashboard/my"><button className="btn-rutiapp me-2">Inicio</button></Link>
-                    <Link to="/dashboard/myexersises"><button className="btn-rutiapp me-2">Mis ejercicios</button></Link>
+                    <Link to="/dashboard/my"><button className="btn-rutiapp me-2 mt-2">Inicio</button></Link>
+                    <Link to="/dashboard/myexersises"><button className="btn-rutiapp me-2 mt-2">Mis ejercicios</button></Link>
                 </nav>
             </div>
             </div>
