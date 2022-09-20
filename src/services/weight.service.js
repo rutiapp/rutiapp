@@ -1,8 +1,8 @@
 import axios from "axios";
 import authHeader from "./auth-header";
 import AuthService from "../services/auth.service";
-const { REACT_APP_API_HOST, REACT_APP_API_PORT } = process.env
-const API_URL = REACT_APP_API_HOST+":"+REACT_APP_API_PORT+"/api/weights/"
+const { REACT_APP_API_HOST } = process.env
+const API_URL = REACT_APP_API_HOST + "/api/weights/"
 let userId = null
 if(AuthService.getCurrentUser()) {
   userId = AuthService.getCurrentUser().id;
