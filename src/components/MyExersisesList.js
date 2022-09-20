@@ -1,32 +1,34 @@
 import AuthService from "../services/auth.service";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDumbbell} from '@fortawesome/free-solid-svg-icons'
 import ExersiseService from "../services/exersise.service";
 import WeightService from "../services/weight.service";
+import { trackPromise } from 'react-promise-tracker';
 const MyExersisesList = () => {
   const currentUser = AuthService.getCurrentUser()
   const [exersises, setExersises] = useState([])
-  const [weights, setWeights] = useState([])
-  const [isLoading, setLoading] = useState(true)
   let navigate = useNavigate()
   const  getExersises = async () => {
-    ExersiseService.getAllByCreator(currentUser.id)
+    
+    trackPromise(ExersiseService.getAllByCreator(currentUser.id)
       .then(response => {
-         response.data.forEach((exersise) => {
-           WeightService.getLatestWeight(exersise.id).then(response => {
-              exersise.lastWeight = response.data.quantity_kg
-              setWeights(exersise.lastWeight)
-          })      
+        response.data.map((exersise, index) => {
+           WeightService.getLatestWeight(exersise.id).then(weight => {
+              exersise.lastWeight = weight.data.quantity_kg
+              if(index + 1 === response.data.length) {
+                setExersises(response.data) 
+              }
+              return exersise
+          })     
         })
-        console.log(response.data)
-        setExersises(response.data)
-        setLoading(false);
+        console.log(exersises)
       })
       .catch(e => {
         console.log(e);
       })
+    )
   }
   useEffect(() => {
      getExersises()
@@ -44,7 +46,7 @@ const MyExersisesList = () => {
   return (
     <div className="container-fluid py-4">
       <div className="row">
-              {!isLoading && exersises && weights &&
+              {exersises &&
             exersises.map((exersise, index) => (
         <div className="col-xl-3 col-sm-6 mb-xl-0 mb-4" key={exersise.id}>
           <div className="card">
