@@ -17,15 +17,15 @@ const create = (quantity_kg, exersiseId) => {
   };
 
 const getLastWeights = (exersiseId) => {
-  return axios.get(API_URL + "findWeightsByExersise/"+userId+"/"+exersiseId,{ headers: authHeader() });
+  return axios.get(API_URL + "findWeightsByExersise/" + exersiseId,{ headers: authHeader() });
 }
 
 const getLatestWeight = (exersiseId) => {
-  return axios.get(API_URL + "findLastWeightByExersise/"+userId+"/"+exersiseId,{ headers: authHeader() });
+  return axios.get(API_URL + "findLastWeightByExersise/" + exersiseId,{ headers: authHeader() });
 }
 
 const getLastWeightsByUser = () => {
-  return axios.get(API_URL + "findLastWeightsByUser/"+userId,{ headers: authHeader() });
+  return axios.get(API_URL + "findLastWeightsByUser",{ headers: authHeader() });
 }
 
 const WeightService = {

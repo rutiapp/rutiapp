@@ -7,7 +7,7 @@ const getAll = () => {
   return axios.get(API_URL + "findAll" , { headers: authHeader() });
 }
 const getAllByCreator = (idCreator) => {
-  return axios.get(API_URL + "findAllByCreator/"+idCreator, { headers: authHeader() });
+  return axios.get(API_URL + "findAllByCreator", { headers: authHeader() });
 }
 
 const getById = (id) => {
