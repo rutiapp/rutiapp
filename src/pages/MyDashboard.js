@@ -31,7 +31,7 @@ const MyDashBoard = () => {
             <div className="card-body p-3">
             {!loading && weights &&
               weights.map((weight, index) => {
-                return <LastActivity key={index} weight= {weight.quantity_kg} name={weight.exersise.name} creation={weight.exersise.createdAt}></LastActivity>
+                return <LastActivity key={index} weight= {weight.quantity_kg} name={weight.exersise.name} creation={weight.createdAt}></LastActivity>
               }
             )}
             </div>
