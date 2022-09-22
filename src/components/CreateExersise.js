@@ -3,7 +3,7 @@ import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPersonBreastfeeding, faUser, faDumbbell, faVideoCamera, faListUl, faQuestionCircle} from '@fortawesome/free-solid-svg-icons'
+import { faPersonBreastfeeding, faDumbbell, faVideoCamera, faListUl, faQuestionCircle} from '@fortawesome/free-solid-svg-icons'
 import ExersiseService from "../services/exersise.service"
 const CreateExersise = () => {
   const form = useRef();
