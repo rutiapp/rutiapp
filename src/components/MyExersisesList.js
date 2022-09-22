@@ -1,5 +1,5 @@
 import AuthService from "../services/auth.service";
-import { useState, useEffect, Suspense } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDumbbell} from '@fortawesome/free-solid-svg-icons'
