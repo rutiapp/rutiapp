@@ -1,10 +1,19 @@
 import AuthService from "../services/auth.service";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faRightFromBracket, faUser} from '@fortawesome/free-solid-svg-icons'
+import EventBus from "../common/EventBus";
 
 const UserBar = () => {
     const currentUser = AuthService.getCurrentUser();
     const iconNavbarSidenav = document.getElementById('navbar');
     const sidenav = document.getElementById('sidenav-main');
+
+    const logout = () => {
+        EventBus.dispatch("logout")
+        window.location.replace("/");
+      }
+
     window.addEventListener("resize", navbarColorOnResize);
     const visibleClass = "visible-element"
         if ( sidenav && window.innerWidth > 1200) {
@@ -36,6 +45,20 @@ const UserBar = () => {
                     <Link to="/dashboard/my"><button className="btn-rutiapp me-2 mt-2">Inicio</button></Link>
                     <Link to="/dashboard/myexersises"><button className="btn-rutiapp me-2 mt-2">Mis ejercicios</button></Link>
                 </nav>
+            </div>
+            <div className="position-relative mt-4 mobile-actions">
+                    <ul className="nav nav-pills nav-fill p-2" role="tablist">
+                        <li className="nav-item mx-3">
+                            <button className="nav-link mb-0 px-0 py-1 d-flex align-items-center justify-content-center " data-bs-toggle="tab" role="tab" aria-selected="false">
+                                <FontAwesomeIcon icon={faUser} />
+                            </button>
+                        </li>
+                        <li className="nav-item mx-3" onClick={logout}>
+                            <button className="nav-link mb-0 px-0 py-1 d-flex align-items-center justify-content-center " data-bs-toggle="tab" role="tab" aria-selected="false">
+                                <FontAwesomeIcon icon={faRightFromBracket} />
+                            </button>
+                        </li>
+                    </ul>
             </div>
             </div>
         </nav> 
@@ -76,11 +99,11 @@ const UserBar = () => {
                             <span className="ms-2">Sugerencias</span>
                         </a>
                         </li>
-                        <li className="nav-item">
-                        <a className="nav-link mb-0 px-0 py-1 d-flex align-items-center justify-content-center " data-bs-toggle="tab" href="/dashboard/my" role="tab" aria-selected="false">
-                            <i className="ni ni-settings-gear-65" />
-                            <span className="ms-2">Ajustes</span>
-                        </a>
+                        <li className="nav-item" onClick={logout}>
+                        <button className="nav-link mb-0 px-0 py-1 d-flex align-items-center justify-content-center " data-bs-toggle="tab" role="tab" aria-selected="false">
+                            <FontAwesomeIcon icon={faRightFromBracket} />
+                            <span className="ms-2">Cerrar sesión</span>
+                        </button>
                         </li>
                     </ul>
                     </div>

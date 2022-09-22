@@ -22457,7 +22457,7 @@
     }
   }
   
-  @media (max-width: 767.98px) {
+  @media (max-width: 1200px) {
 
     #sidenav-main{
       display: none;
@@ -27012,10 +27012,17 @@
 
 @media (max-width: 480px) {
 
-  .my-routines-table-header {
-    display: inline-flex;
-    justify-content: center;
-    align-items: flex-start;
-}
+    .my-routines-table-header {
+      display: inline-flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
   
+}
+
+@media (min-width : 991px) {
+  .mobile-actions {
+    visibility: hidden !important;
+    display: none;
+  }
 }
