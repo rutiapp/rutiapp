@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Footer from "../components/Footer";
-import LastActivity from "../components/LastActivity";
+import LastActivity from "../components/dashboard/LastActivity/LastActivity";
 import WeightService from "../services/weight.service";
 import AuthService from "../services/auth.service";
 const MyDashBoard = () => {

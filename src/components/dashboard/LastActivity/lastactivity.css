@@ -1,0 +1,10 @@
+.activity{
+	width: 100%;
+	border: none;
+	border-radius: 20px;
+	background-color: #dc1a20ea;
+}
+
+.last-activity-text {
+    color: white;
+}
