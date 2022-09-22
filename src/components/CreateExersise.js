@@ -3,7 +3,7 @@ import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEnvelope, faLock, faUser} from '@fortawesome/free-solid-svg-icons'
+import { faPersonBreastfeeding, faUser, faDumbbell, faVideoCamera, faListUl, faQuestionCircle} from '@fortawesome/free-solid-svg-icons'
 import ExersiseService from "../services/exersise.service"
 const CreateExersise = () => {
   const form = useRef();
@@ -87,7 +87,7 @@ const CreateExersise = () => {
             />
             <span className="focus-input100" />
             <span className="symbol-input100">
-              <FontAwesomeIcon icon={faUser} />
+              <FontAwesomeIcon icon={faDumbbell} />
             </span>
           </div>
 
@@ -102,7 +102,7 @@ const CreateExersise = () => {
                 />
                 <span className="focus-input100" />
                 <span className="symbol-input100">
-                  <FontAwesomeIcon icon={faEnvelope} />
+                  <FontAwesomeIcon icon={faVideoCamera} />
                  </span>
               </div>
 
@@ -117,7 +117,7 @@ const CreateExersise = () => {
                 />
                 <span className="focus-input100" />
                 <span className="symbol-input100">
-                  <FontAwesomeIcon icon={faLock} />
+                  <FontAwesomeIcon icon={faListUl} />
                 </span>
           </div>
 
@@ -132,7 +132,7 @@ const CreateExersise = () => {
                 />
                 <span className="focus-input100" />
                 <span className="symbol-input100">
-                  <FontAwesomeIcon icon={faUser} />
+                  <FontAwesomeIcon icon={faPersonBreastfeeding} />
                 </span>
               </div>
 
@@ -147,7 +147,7 @@ const CreateExersise = () => {
                 />
                 <span className="focus-input100" />
                 <span className="symbol-input100">
-                  <FontAwesomeIcon icon={faUser} />
+                  <FontAwesomeIcon icon={faQuestionCircle} />
                 </span>
               </div>
               <div className="container-login100-form-btn">
