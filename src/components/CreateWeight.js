@@ -3,7 +3,7 @@ import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser} from '@fortawesome/free-solid-svg-icons'
+import { faScaleUnbalanced} from '@fortawesome/free-solid-svg-icons'
 import WeightService from "../services/weight.service"
 import {useParams} from 'react-router-dom' 
 const CreateWeight = () => {
@@ -65,7 +65,7 @@ const CreateWeight = () => {
             />
             <span className="focus-input100" />
             <span className="symbol-input100">
-              <FontAwesomeIcon icon={faUser} />
+              <FontAwesomeIcon icon={faScaleUnbalanced} />
             </span>
           </div>
               <div className="container-login100-form-btn">

@@ -4,7 +4,7 @@ import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { isEmail } from "validator";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEnvelope, faLock, faUser} from '@fortawesome/free-solid-svg-icons'
+import { faEnvelope, faLock, faUser, faImage, faUsersRectangle} from '@fortawesome/free-solid-svg-icons'
 import {Link} from 'react-router-dom'
 
 import AuthService from "../services/auth.service";
@@ -166,7 +166,7 @@ const Register = () => {
                 />
                 <span className="focus-input100" />
                 <span className="symbol-input100">
-                  <FontAwesomeIcon icon={faUser} />
+                  <FontAwesomeIcon icon={faUsersRectangle} />
                 </span>
               </div>
 
@@ -182,7 +182,7 @@ const Register = () => {
                 />
                 <span className="focus-input100" />
                 <span className="symbol-input100">
-                  <FontAwesomeIcon icon={faUser} />
+                  <FontAwesomeIcon icon={faUsersRectangle} />
                 </span>
               </div>
 
@@ -197,7 +197,7 @@ const Register = () => {
                 />
                 <span className="focus-input100" />
                 <span className="symbol-input100">
-                  <FontAwesomeIcon icon={faUser} />
+                  <FontAwesomeIcon icon={faImage} />
                 </span>
               </div>
 
