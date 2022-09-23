@@ -33,6 +33,9 @@ const Register = () => {
   const form = useRef()
   const checkBtn = useRef()
   let capcha = false
+  if(localStorage.getItem("captchaToken")) {
+    capcha = true
+  }
   const [username, setUsername] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -91,7 +94,6 @@ const Register = () => {
     form.current.validateAll()
     if(REACT_APP_CAPCHA_ON === "false") {
       capcha = true
-      console.log(capcha)
     }
 
     
