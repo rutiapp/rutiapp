@@ -1,12 +1,12 @@
-import React, { useState, useRef } from "react";
-import Form from "react-validation/build/form";
-import Input from "react-validation/build/input";
-import CheckButton from "react-validation/build/button";
+import React, { useState, useRef } from "react"
+import Form from "react-validation/build/form"
+import Input from "react-validation/build/input"
+import CheckButton from "react-validation/build/button"
 import { isEmail } from "validator";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faLock, faUser, faImage, faUsersRectangle} from '@fortawesome/free-solid-svg-icons'
 import {Link} from 'react-router-dom'
-
+import HCaptcha from 'react-hcaptcha'
 import AuthService from "../services/auth.service";
 
 const required = (value) => {
@@ -30,63 +30,77 @@ const validEmail = (value) => {
 }
 
 const Register = () => {
-  const form = useRef();
-  const checkBtn = useRef();
+  const form = useRef()
+  const checkBtn = useRef()
 
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
-  const [surname, setSurname] = useState("");
-  const [photo_url, setPhotoUrl] = useState("");
-  const [successful, setSuccessful] = useState(false);
-  const [message, setMessage] = useState("");
-  const [loading, setLoading] = useState(false);
-
+  const [username, setUsername] = useState("")
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [name, setName] = useState("")
+  const [surname, setSurname] = useState("")
+  const [photo_url, setPhotoUrl] = useState("")
+  const [successful, setSuccessful] = useState(false)
+  const [message, setMessage] = useState("")
+  const [loading, setLoading] = useState(false)
+  const { REACT_APP_CAPCHA_ON } = process.env
+  
   const onChangeUsername = (e) => {
-    const username = e.target.value;
-    setUsername(username);
+    const username = e.target.value
+    setUsername(username)
   };
 
   const onChangeEmail = (e) => {
-    const email = e.target.value;
-    setEmail(email);
+    const email = e.target.value
+    setEmail(email)
   };
 
   const onChangePassword = (e) => {
-    const password = e.target.value;
-    setPassword(password);
+    const password = e.target.value
+    setPassword(password)
   };
 
   const onChangeName = (e) => {
-    const name = e.target.value;
-    setName(name);
+    const name = e.target.value
+    setName(name)
   };
 
   const onChangeSurname = (e) => {
-    const surname = e.target.value;
-    setSurname(surname);
+    const surname = e.target.value
+    setSurname(surname)
   };
 
   const onChangePhotoUrl = (e) => {
-    const photo_url = e.target.value;
-    setPhotoUrl(photo_url);
+    const photo_url = e.target.value
+    setPhotoUrl(photo_url)
   };
 
+  const onVerifyCaptcha = (token) => {
+    console.log(token)
+    if(token) {
+      localStorage.setItem("captchaToken", JSON.stringify(token));
+    }
+  }
+
   const handleRegister = (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setMessage("");
-    setSuccessful(false);
+    e.preventDefault()
+    setLoading(true)
+    setMessage("")
+    setSuccessful(false)
 
-    form.current.validateAll();
+    form.current.validateAll()
+    let capcha = false
+    if(REACT_APP_CAPCHA_ON === "false") {
+      capcha = true
+      console.log(capcha)
+    }
 
-    if (checkBtn.current.context._errors.length === 0) {
+    
+    if (checkBtn.current.context._errors.length === 0 && capcha) {
       AuthService.register(username, email, password, name, surname, photo_url).then(
         (response) => {
-          setMessage(response.data.message);
-          setSuccessful(true);
-          setLoading(false);
+          setMessage(response.data.message)
+          setSuccessful(true)
+          setLoading(false)
         },
         (error) => {
           const resMessage =
@@ -94,14 +108,17 @@ const Register = () => {
               error.response.data &&
               error.response.data.message) ||
             error.message ||
-            error.toString();
-          setLoading(false);
-          setMessage(resMessage);
-          setSuccessful(false);
+            error.toString()
+          setLoading(false)
+          setMessage(resMessage)
+          setSuccessful(false)
         }
       );
+    } else if( !capcha) {
+        const capchaError = "Debe completar correctamente la verificación de humanos"
+        setMessage(capchaError)
     }
-  };
+  }
 
   return (
 
@@ -200,6 +217,10 @@ const Register = () => {
                   <FontAwesomeIcon icon={faImage} />
                 </span>
               </div>
+
+              <HCaptcha sitekey="ed59f2ac-be66-4757-9e22-911fea1f1878" onVerify={(token,ekey) => onVerifyCaptcha(token, ekey)}
+    />
+
 
               <div className="container-login100-form-btn">
             <button className="login100-form-btn" disabled={loading}>

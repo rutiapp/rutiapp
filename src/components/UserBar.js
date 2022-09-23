@@ -62,7 +62,7 @@ const UserBar = () => {
             </div>
             </div>
         </nav> 
-    </div>
+    </div>{currentUser &&
     <div className="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4 flexJustifyEnd profileUser" id="navbar">
         <div className="card shadow-lg mx-4">
             <div className="card-body p-3">
@@ -112,6 +112,7 @@ const UserBar = () => {
             </div>
         </div>
     </div>
+    }
 </div>
 )}
 

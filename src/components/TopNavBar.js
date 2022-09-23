@@ -5,10 +5,12 @@ const TopNavbar = () => {
   let localitation = ''
   if(currentUrl.includes("myroutines")) {
     localitation = "MIS RUTINAS"
-  } else if(currentUrl.includes("myexersises")) {
+  } else if(currentUrl.includes("myexersises") ) {
     localitation = "MIS EJERCICIOS"
   } else if(currentUrl.includes("my")) {
     localitation = "MI RESUMEN"
+  } else {
+    localitation = "MI ESCRITORIO"
   }
 
   return (
