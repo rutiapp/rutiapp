@@ -42,7 +42,6 @@ const Register = () => {
   const [successful, setSuccessful] = useState(false)
   const [message, setMessage] = useState("")
   const [loading, setLoading] = useState(false)
-  const [capcha, setCapcha] = useState(false)
   const { REACT_APP_CAPCHA_ON } = process.env
   
   const onChangeUsername = (e) => {
@@ -77,8 +76,10 @@ const Register = () => {
 
   const onVerifyCaptcha = (token) => {
     console.log(token)
-    setCapcha(true)
+    if(token) {
+      localStorage.setItem("captchaToken", JSON.stringify(token));
     }
+  }
 
   const handleRegister = (e) => {
     e.preventDefault()
@@ -87,22 +88,19 @@ const Register = () => {
     setSuccessful(false)
 
     form.current.validateAll()
-
-
-    console.log(REACT_APP_CAPCHA_ON)
+    let capcha = false
     if(REACT_APP_CAPCHA_ON === "false") {
-      setCapcha(true)
+      capcha = true
       console.log(capcha)
     }
 
     
-    if (checkBtn.current.context._errors.length === 0 && capcha === true) {
+    if (checkBtn.current.context._errors.length === 0 && capcha) {
       AuthService.register(username, email, password, name, surname, photo_url).then(
         (response) => {
           setMessage(response.data.message)
           setSuccessful(true)
           setLoading(false)
-          setCapcha(false)
         },
         (error) => {
           const resMessage =

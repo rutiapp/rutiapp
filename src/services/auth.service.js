@@ -1,4 +1,6 @@
 import axios from "axios";
+import captchaHeader from "../services/headers/captcha-header";
+
 const { REACT_APP_API_HOST } = process.env
 const API_URL = REACT_APP_API_HOST+"/api/auth/"
 const register = (username, email, password, name, surname, photo_url) => {
@@ -8,7 +10,8 @@ const register = (username, email, password, name, surname, photo_url) => {
     password,
     name,
     surname,
-    photo_url
+    photo_url,
+    headers: captchaHeader()
   });
 };
 const login = (username, password) => {
