@@ -11,8 +11,7 @@ const register = (username, email, password, name, surname, photo_url) => {
     name,
     surname,
     photo_url,
-    headers: captchaHeader()
-  });
+  }, {headers: captchaHeader()});
 };
 const login = (username, password) => {
   return axios
