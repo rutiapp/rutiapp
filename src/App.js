@@ -15,6 +15,7 @@ import CreateExersise from "./components/CreateExersise";
 import MyExersisesList from "./components/MyExersisesList";
 import ViewExersise from "./components/ViewExersise";
 import CreateWeight from "./components/CreateWeight";
+import { PrivateRoute } from "./components/private-route/PrivateRoute";
 
 const App = () => {
 
@@ -39,7 +40,8 @@ const App = () => {
             <Route path="/home" element={<Home/>} />
             <Route path="/login" element={<Login/>} />
             <Route path="/register" element={<SignUp/>} />
-            <Route path='dashboard' element={<Dashboard />}>
+            <Route path='dashboard' element={<PrivateRoute><Dashboard /></PrivateRoute>}>
+                    <Route path='' element={<MyDashBoard />} />
                     <Route path='my' element={<MyDashBoard />} />
                     <Route path='myroutines' element={<MyRoutines />} />
                     <Route path='myexersises' element={<MyExersises />} >
