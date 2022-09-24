@@ -79,7 +79,7 @@ const Register = () => {
     setPhotoUrl(photo_url)
   }
 
-  const onVerifyCaptcha = () => {
+  const onVerifyCaptcha = (token) => {
     if(token) {
       localStorage.setItem("captchaToken", JSON.stringify(token))
       capcha = true
@@ -88,7 +88,7 @@ const Register = () => {
   }
 
   const onLoad = () => {
-    captchaRef.current.execute()
+    captchaRef.current?.execute()
   }
 
   const handleRegister = (e) => {
@@ -236,7 +236,7 @@ const Register = () => {
                 </span>
               </div>
             {REACT_APP_CAPCHA_ON === "true" &&
-              <HCaptcha sitekey="ed59f2ac-be66-4757-9e22-911fea1f1878" onVerify={(token,ekey) => onVerifyCaptcha(token, ekey)}
+              <HCaptcha sitekey="ed59f2ac-be66-4757-9e22-911fea1f1878" onVerify={(token) => onVerifyCaptcha(token)}
               ref={captchaRef}
               onLoad={onLoad}
               />
