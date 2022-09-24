@@ -115,10 +115,12 @@ const Register = () => {
           setMessage(resMessage)
           setSuccessful(false)
         }
-      );
+      )
     } else if( !capcha) {
         const capchaError = "Debe completar correctamente la verificación de humanos"
         setMessage(capchaError)
+        setLoading(false)
+        setSuccessful(false)
     }
   }
 
@@ -219,11 +221,10 @@ const Register = () => {
                   <FontAwesomeIcon icon={faImage} />
                 </span>
               </div>
+            {REACT_APP_CAPCHA_ON === "true" &&
+              <HCaptcha sitekey="ed59f2ac-be66-4757-9e22-911fea1f1878" onVerify={(token,ekey) => onVerifyCaptcha(token, ekey)} />
 
-              <HCaptcha sitekey="ed59f2ac-be66-4757-9e22-911fea1f1878" onVerify={(token,ekey) => onVerifyCaptcha(token, ekey)}
-    />
-
-
+          }
               <div className="container-login100-form-btn">
             <button className="login100-form-btn" disabled={loading}>
               {loading && (
