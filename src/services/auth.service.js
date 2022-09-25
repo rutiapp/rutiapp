@@ -18,7 +18,7 @@ const login = (username, password) => {
     .post(API_URL + "signin", {
       username,
       password,
-    })
+    }, {headers: captchaHeader()})
     .then((response) => {
       if (response.data.accessToken) {
         localStorage.setItem("user", JSON.stringify(response.data));
