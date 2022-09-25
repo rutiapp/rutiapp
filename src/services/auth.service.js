@@ -11,15 +11,14 @@ const register = (username, email, password, name, surname, photo_url) => {
     name,
     surname,
     photo_url,
-    headers: captchaHeader()
-  });
+  }, {headers: captchaHeader()});
 };
 const login = (username, password) => {
   return axios
     .post(API_URL + "signin", {
       username,
       password,
-    })
+    }, {headers: captchaHeader()})
     .then((response) => {
       if (response.data.accessToken) {
         localStorage.setItem("user", JSON.stringify(response.data));

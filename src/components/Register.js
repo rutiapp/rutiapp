@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react"
+import React, { useState, useRef, useEffect } from "react"
 import Form from "react-validation/build/form"
 import Input from "react-validation/build/input"
 import CheckButton from "react-validation/build/button"
@@ -33,6 +33,9 @@ const Register = () => {
   const form = useRef()
   const checkBtn = useRef()
   let capcha = false
+  if(localStorage.getItem("captchaToken")) {
+    capcha = true
+  }
   const [username, setUsername] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -43,43 +46,49 @@ const Register = () => {
   const [message, setMessage] = useState("")
   const [loading, setLoading] = useState(false)
   const { REACT_APP_CAPCHA_ON } = process.env
+  const [token, setToken] = useState(null);
+  const captchaRef = useRef(null);
   
   const onChangeUsername = (e) => {
     const username = e.target.value
     setUsername(username)
-  };
+  }
 
   const onChangeEmail = (e) => {
     const email = e.target.value
     setEmail(email)
-  };
+  }
 
   const onChangePassword = (e) => {
     const password = e.target.value
     setPassword(password)
-  };
+  }
 
   const onChangeName = (e) => {
     const name = e.target.value
     setName(name)
-  };
+  }
 
   const onChangeSurname = (e) => {
     const surname = e.target.value
     setSurname(surname)
-  };
+  }
 
   const onChangePhotoUrl = (e) => {
     const photo_url = e.target.value
     setPhotoUrl(photo_url)
-  };
+  }
 
   const onVerifyCaptcha = (token) => {
-    console.log(token)
     if(token) {
-      localStorage.setItem("captchaToken", JSON.stringify(token));
+      localStorage.setItem("captchaToken", JSON.stringify(token))
       capcha = true
+      setToken(token)
     }
+  }
+
+  const onLoad = () => {
+    captchaRef.current?.execute()
   }
 
   const handleRegister = (e) => {
@@ -91,7 +100,6 @@ const Register = () => {
     form.current.validateAll()
     if(REACT_APP_CAPCHA_ON === "false") {
       capcha = true
-      console.log(capcha)
     }
 
     
@@ -113,12 +121,22 @@ const Register = () => {
           setMessage(resMessage)
           setSuccessful(false)
         }
-      );
+      )
     } else if( !capcha) {
         const capchaError = "Debe completar correctamente la verificación de humanos"
         setMessage(capchaError)
+        setLoading(false)
+        setSuccessful(false)
     }
   }
+
+  useEffect(() => {
+
+    if (token) {
+      localStorage.setItem("captchaToken", JSON.stringify(token))
+    }
+
+  }, [token]);
 
   return (
 
@@ -217,11 +235,13 @@ const Register = () => {
                   <FontAwesomeIcon icon={faImage} />
                 </span>
               </div>
+            {REACT_APP_CAPCHA_ON === "true" &&
+              <HCaptcha sitekey="ed59f2ac-be66-4757-9e22-911fea1f1878" onVerify={(token) => onVerifyCaptcha(token)}
+              ref={captchaRef}
+              onLoad={onLoad}
+              />
 
-              <HCaptcha sitekey="ed59f2ac-be66-4757-9e22-911fea1f1878" onVerify={(token,ekey) => onVerifyCaptcha(token, ekey)}
-    />
-
-
+          }
               <div className="container-login100-form-btn">
             <button className="login100-form-btn" disabled={loading}>
               {loading && (

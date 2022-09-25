@@ -1,36 +1,54 @@
-import React, { useState, useRef } from "react";
-import { useNavigate } from 'react-router-dom';
-import Form from "react-validation/build/form";
-import Input from "react-validation/build/input";
-import CheckButton from "react-validation/build/button";
-import AuthService from "../services/auth.service";
+import React, { useState, useRef } from "react"
+import { useNavigate } from 'react-router-dom'
+import Form from "react-validation/build/form"
+import Input from "react-validation/build/input"
+import CheckButton from "react-validation/build/button"
+import AuthService from "../services/auth.service"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faLock, faLongArrowRight} from '@fortawesome/free-solid-svg-icons'
+import HCaptcha from 'react-hcaptcha'
 const Login = () => {
-  let navigate = useNavigate();
-  const form = useRef();
-  const checkBtn = useRef();
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("");
+  let navigate = useNavigate()
+  const form = useRef()
+  const checkBtn = useRef()
+  const [username, setUsername] = useState("")
+  const [password, setPassword] = useState("")
+  const [loading, setLoading] = useState(false)
+  const [message, setMessage] = useState("")
+  const [attempts, setAttempts] = useState(0)
+  const [token, setToken] = useState(null)
+  const captchaRef = useRef(null);
   const onChangeUsername = (e) => {
-    const username = e.target.value;
-    setUsername(username);
-  };
+    const username = e.target.value
+    setUsername(username)
+  }
   const onChangePassword = (e) => {
-    const password = e.target.value;
-    setPassword(password);
-  };
+    const password = e.target.value
+    setPassword(password)
+  }
+
+  const onVerifyCaptcha = (token) => {
+    if(token) {
+      localStorage.setItem("captchaToken", JSON.stringify(token))
+      setToken(token)
+    }
+  }
+
+  const onLoad = () => {
+    captchaRef.current?.execute()
+  }
+
+
   const handleLogin = (e) => {
     e.preventDefault();
     setMessage("");
     setLoading(true);
     form.current.validateAll();
-    if (checkBtn.current.context._errors.length === 0) {
+    if ((checkBtn.current.context._errors.length === 0 && attempts <=3) || (checkBtn.current.context._errors.length === 0 && token) ) {
+      setAttempts(attempts + 1)
       AuthService.login(username, password).then(
         () => {
-          navigate("/dashboard/my");
+          navigate("/dashboard/my")
         },
         (error) => {
           const resMessage =
@@ -38,13 +56,13 @@ const Login = () => {
               error.response.data &&
               error.response.data.message) ||
             error.message ||
-            error.toString();
-          setLoading(false);
-          setMessage(resMessage);
+            error.toString()
+          setLoading(false)
+          setMessage(resMessage)
         }
-      );
+      )
     } else {
-      setLoading(false);
+      setLoading(false)
     }
   }
   return (
@@ -80,6 +98,14 @@ const Login = () => {
             <FontAwesomeIcon icon={faLock} />
             </span>
           </div>
+          <div className="wrap-input100 validate-input" >
+          {attempts >= 3 &&
+              <HCaptcha sitekey="ed59f2ac-be66-4757-9e22-911fea1f1878" onVerify={(token) => onVerifyCaptcha(token)}
+              ref={captchaRef}
+              onLoad={onLoad}
+              />
+          }
+          </div>
           <div className="container-login100-form-btn">
             <button className="login100-form-btn" disabled={loading}>
               {loading && (
@@ -108,6 +134,6 @@ const Login = () => {
           </div>
         </Form>
     
-  );
-};
-export default Login;
+  )
+}
+export default Login
