@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useEffect } from "react";
 import "../App.css";
 import "../styles/utils.css";
 import "../styles/home.css";

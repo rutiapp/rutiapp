@@ -7,6 +7,7 @@ import AuthService from "../services/auth.service"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faLock, faLongArrowRight} from '@fortawesome/free-solid-svg-icons'
 import HCaptcha from 'react-hcaptcha'
+const { REACT_APP_CAPCHA_TOKEN_EXP_SECONDS } = process.env
 const Login = () => {
   let navigate = useNavigate()
   const form = useRef()
@@ -18,6 +19,21 @@ const Login = () => {
   const [attempts, setAttempts] = useState(0)
   const [token, setToken] = useState(null)
   const captchaRef = useRef(null);
+  const ttl = REACT_APP_CAPCHA_TOKEN_EXP_SECONDS
+  const getDeleteExpired = () => {
+    const itemStr = localStorage.getItem('captchaToken')
+    if (!itemStr) {
+      return null
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem('captchaToken')
+      return null
+    }
+    return item.value
+  }
+
   const onChangeUsername = (e) => {
     const username = e.target.value
     setUsername(username)
@@ -29,7 +45,12 @@ const Login = () => {
 
   const onVerifyCaptcha = (token) => {
     if(token) {
-      localStorage.setItem("captchaToken", JSON.stringify(token))
+      const now = new Date()
+      const captchaToken = {
+        value: token,
+        expiry: now.getTime() + Number(ttl),
+      }
+      localStorage.setItem("captchaToken", JSON.stringify(captchaToken))
       setToken(token)
     }
   }
@@ -40,6 +61,7 @@ const Login = () => {
 
 
   const handleLogin = (e) => {
+    
     e.preventDefault();
     setMessage("");
     setLoading(true);
@@ -65,6 +87,7 @@ const Login = () => {
       setLoading(false)
     }
   }
+  getDeleteExpired()
   return (
     <Form onSubmit={handleLogin} className="login100-form validate-form" ref={form}>
           <span className="login100-form-title">
