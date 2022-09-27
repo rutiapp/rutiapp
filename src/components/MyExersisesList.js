@@ -1,14 +1,19 @@
-import AuthService from "../services/auth.service";
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import AuthService from "../services/auth.service"
+import { useState, useEffect, useRef } from "react"
+import { useNavigate } from "react-router-dom"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faDumbbell} from '@fortawesome/free-solid-svg-icons'
-import ExersiseService from "../services/exersise.service";
-import WeightService from "../services/weight.service";
-import { trackPromise } from 'react-promise-tracker';
+import { faDumbbell, faSearch} from '@fortawesome/free-solid-svg-icons'
+import ExersiseService from "../services/exersise.service"
+import WeightService from "../services/weight.service"
+import Input from "react-validation/build/input"
+import Form from "react-validation/build/form"
+import { trackPromise } from 'react-promise-tracker'
 const MyExersisesList = () => {
   const currentUser = AuthService.getCurrentUser()
   const [exersises, setExersises] = useState([])
+  const [totalExersises, setTotalExersises] = useState([])
+  const [search, setSearch] = useState(null)
+  const form = useRef()
   let navigate = useNavigate()
   const  getExersises = async () => {
     
@@ -18,7 +23,8 @@ const MyExersisesList = () => {
            WeightService.getLatestWeight(exersise.id).then(weight => {
               exersise.lastWeight = weight.data.quantity_kg
               if(index + 1 === response.data.length) {
-                setExersises(response.data) 
+                setExersises(response.data)
+                setTotalExersises(response.data) 
               }
               return exersise
           })     
@@ -26,12 +32,25 @@ const MyExersisesList = () => {
         console.log(exersises)
       })
       .catch(e => {
-        console.log(e);
+        console.log(e)
       })
     )
   }
+
+  const onChangeSearch = (e) => {
+    const search = e.target.value
+    console.log(search)
+    setSearch(search)
+  }
   useEffect(() => {
-     getExersises()
+    if(search) {
+      const newExersises = totalExersises.filter(value => value.name.toLowerCase().includes(search.toLowerCase()))
+      setExersises(newExersises)
+    }
+  },[search])
+
+  useEffect(() => {
+    getExersises()
   },[])
 
   const viewExersise = (e,id) => {
@@ -45,6 +64,23 @@ const MyExersisesList = () => {
   }
   return (
     <div className="container-fluid py-4">
+      <div className="row mb-3">
+        <div class="ms-md-auto pe-md-3 d-flex">
+              <div className="input-group justify-content-center align-items-center">
+                <span className="align-items-center m-r-5"><FontAwesomeIcon icon={faSearch} size="lg"/></span>
+                <Form ref={form}>
+                <Input
+              type="text"
+              className="form-control"
+              name="search"
+              value={search}
+              onChange={onChangeSearch}
+              placeholder="Introduce nombre de ejercicio ..."
+            />
+                </Form>
+              </div>
+        </div>
+      </div>
       <div className="row">
               {exersises &&
             exersises.map((exersise, index) => (
@@ -81,6 +117,6 @@ const MyExersisesList = () => {
             ))}
           </div>
           </div>
-  );
-};
+  )
+}
 export default MyExersisesList;
