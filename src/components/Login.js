@@ -18,6 +18,25 @@ const Login = () => {
   const [attempts, setAttempts] = useState(0)
   const [token, setToken] = useState(null)
   const captchaRef = useRef(null);
+  const ttl = 10
+  const getWithExpiry = () => {
+    const itemStr = localStorage.getItem('captchaToken')
+    // if the item doesn't exist, return null
+    if (!itemStr) {
+      return null
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+    // compare the expiry time of the item with the current time
+    if (now.getTime() > item.expiry) {
+      // If the item is expired, delete the item from storage
+      // and return null
+      localStorage.removeItem('captchaToken')
+      return null
+    }
+    return item.value
+  }
+
   const onChangeUsername = (e) => {
     const username = e.target.value
     setUsername(username)
@@ -29,7 +48,12 @@ const Login = () => {
 
   const onVerifyCaptcha = (token) => {
     if(token) {
-      localStorage.setItem("captchaToken", JSON.stringify(token))
+      const now = new Date()
+      const captchaToken = {
+        value: token,
+        expiry: now.getTime() + ttl,
+      }
+      localStorage.setItem("captchaToken", JSON.stringify(captchaToken))
       setToken(token)
     }
   }
@@ -66,6 +90,7 @@ const Login = () => {
       setLoading(false)
     }
   }
+  getWithExpiry()
   return (
     <Form onSubmit={handleLogin} className="login100-form validate-form" ref={form}>
           <span className="login100-form-title">
