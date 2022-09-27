@@ -48,7 +48,7 @@ const MyExersisesList = () => {
       <div className="row">
               {exersises &&
             exersises.map((exersise, index) => (
-        <div className="col-xl-3 col-sm-6 mb-xl-0 mb-4" key={exersise.id}>
+        <div className="col-xl-3 col-sm-6 mb-4" key={exersise.id}>
           <div className="card">
             <div className="card-body p-3">
               <div className="row">

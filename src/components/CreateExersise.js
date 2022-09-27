@@ -67,7 +67,11 @@ const CreateExersise = () => {
               let res = await YoutubeService.searchByKeyword(name)
               id = res.data?.items[0]?.id?.videoId
             }else {
-              id = video_url
+              let regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/
+              let match = video_url.match(regExp)
+              if (match && match[2].length === 11) {
+                id = match[2]
+              } 
             }
             ExersiseService.create(name, 'https://www.youtube.com/embed/'+id, series, repetitions, help_url).then(
           (response) => {
