@@ -8,6 +8,21 @@ import { faEnvelope, faLock, faUser, faImage, faUsersRectangle} from '@fortaweso
 import {Link} from 'react-router-dom'
 import HCaptcha from 'react-hcaptcha'
 import AuthService from "../services/auth.service";
+const { REACT_APP_CAPCHA_TOKEN_EXP_SECONDS } = process.env
+
+const getDeleteExpired = () => {
+  const itemStr = localStorage.getItem('captchaToken')
+  if (!itemStr) {
+    return null
+  }
+  const item = JSON.parse(itemStr)
+  const now = new Date()
+  if (now.getTime() > item.expiry) {
+    localStorage.removeItem('captchaToken')
+    return null
+  }
+  return item.value
+}
 
 const required = (value) => {
   if (!value) {
@@ -30,6 +45,7 @@ const validEmail = (value) => {
 }
 
 const Register = () => {
+  getDeleteExpired()
   const form = useRef()
   const checkBtn = useRef()
   let capcha = false
@@ -48,6 +64,7 @@ const Register = () => {
   const { REACT_APP_CAPCHA_ON } = process.env
   const [token, setToken] = useState(null);
   const captchaRef = useRef(null);
+  const ttl = REACT_APP_CAPCHA_TOKEN_EXP_SECONDS
   
   const onChangeUsername = (e) => {
     const username = e.target.value
@@ -81,7 +98,12 @@ const Register = () => {
 
   const onVerifyCaptcha = (token) => {
     if(token) {
-      localStorage.setItem("captchaToken", JSON.stringify(token))
+      const now = new Date()
+      const captchaToken = {
+        value: token,
+        expiry: now.getTime() + Number(ttl),
+      }
+      localStorage.setItem("captchaToken", JSON.stringify(captchaToken))
       capcha = true
       setToken(token)
     }
@@ -129,14 +151,6 @@ const Register = () => {
         setSuccessful(false)
     }
   }
-
-  useEffect(() => {
-
-    if (token) {
-      localStorage.setItem("captchaToken", JSON.stringify(token))
-    }
-
-  }, [token]);
 
   return (
 
