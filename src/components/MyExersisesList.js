@@ -29,23 +29,23 @@ const MyExersisesList = () => {
               return exersise
           })     
         })
-        console.log(exersises)
       })
       .catch(e => {
-        console.log(e)
+        console.error(e)
       })
     )
   }
 
   const onChangeSearch = (e) => {
     const search = e.target.value
-    console.log(search)
     setSearch(search)
   }
   useEffect(() => {
     if(search) {
       const newExersises = totalExersises.filter(value => value.name.toLowerCase().includes(search.toLowerCase()))
       setExersises(newExersises)
+    } else if (search === '') {
+      getExersises()
     }
   },[search])
 
