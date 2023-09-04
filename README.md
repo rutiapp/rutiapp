@@ -18,20 +18,20 @@ This project is a application that save your progress in gym. You can save you e
 
 ### Home
 
-![Home preview](https://github.com/rutiapp/rutiapp/blob/main/home.png?raw=true)
+![Home preview](https://github.com/rutiapp/rutiapp/blob/master/home.png?raw=true)
 
 ### Login Form
 
-![Login form preview](https://github.com/rutiapp/rutiapp/blob/main/login.png?raw=true)
+![Login form preview](https://github.com/rutiapp/rutiapp/blob/master/login.png?raw=true)
 
 ### Register Form
 
-![Register form preview](https://github.com/rutiapp/rutiapp/blob/main/register.png?raw=true)
+![Register form preview](https://github.com/rutiapp/rutiapp/blob/master/register.png?raw=true)
 
 ### My exersises
 
-![My exersises preview](https://github.com/rutiapp/rutiapp/blob/main/ejercicios.png?raw=true)
+![My exersises preview](https://github.com/rutiapp/rutiapp/blob/master/ejercicios.png?raw=true)
 
 ### Exersise info
 
-![Exersise preview](https://github.com/rutiapp/rutiapp/blob/main/exersise.png?raw=true)
+![Exersise preview](https://github.com/rutiapp/rutiapp/blob/master/exersise.png?raw=true)
