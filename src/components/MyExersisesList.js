@@ -20,14 +20,11 @@ const MyExersisesList = () => {
     trackPromise(ExersiseService.getAllByCreator(currentUser.id)
       .then(response => {
         response.data.map((exersise, index) => {
-          WeightService.getLatestWeight(exersise.id).then(weight => {
-            exersise.lastWeight = weight.data.quantity_kg
-            if (index + 1 === response.data.length) {
-              setExersises(response.data)
-              setTotalExersises(response.data)
-            }
-            return exersise
-          })
+          if (index + 1 === response.data.length) {
+            setExersises(response.data)
+            setTotalExersises(response.data)
+          }
+          return exersise
         })
       })
       .catch(e => {
@@ -42,7 +39,7 @@ const MyExersisesList = () => {
   }
   useEffect(() => {
     if (search) {
-      const newExersises = totalExersises.filter(value => value.name.toLowerCase().includes(search.toLowerCase()))
+      const newExersises = totalExersises.filter(value => value.dataValues.name.toLowerCase().includes(search.toLowerCase()))
       setExersises(newExersises)
     } else if (search === '') {
       getExersises()
@@ -84,15 +81,15 @@ const MyExersisesList = () => {
       <div className="row">
         {exersises &&
           exersises.map((exersise, index) => (
-            <div className="col-xl-3 col-sm-6 mb-4" key={exersise.id}>
+            <div className="col-xl-3 col-sm-6 mb-4" key={exersise.dataValues.id}>
               <div className="card">
                 <div className="card-body p-3">
                   <div className="row">
                     <div className="col-8">
-                      <div className="numbers" onClick={e => viewExersise(e, exersise.id)}>
-                        <p className="text-sm mb-0 text-uppercase font-weight-bold">{exersise.name}</p>
+                      <div className="numbers" onClick={e => viewExersise(e, exersise.dataValues.id)}>
+                        <p className="text-sm mb-0 text-uppercase font-weight-bold">{exersise.dataValues.name}</p>
                         <h5 className="font-weight-bolder">
-                          {exersise.series}X{exersise.repetitions}
+                          {exersise.dataValues.series}X{exersise.dataValues.repetitions}
                         </h5>
                         {exersise.lastWeight
                           ? <div><p className="mb-0"><span className="text-success text-sm font-weight-bolder m-r-3">{exersise.lastWeight}KG</span>Último Peso</p></div>
@@ -100,7 +97,7 @@ const MyExersisesList = () => {
                         }
                       </div>
                       <div>
-                        <button onClick={e => addWeight(e, exersise.id)} className="btn-rutiapp mt-2 font-very-small">Añadir Peso</button>
+                        <button onClick={e => addWeight(e, exersise.dataValues.id)} className="btn-rutiapp mt-2 font-very-small">Añadir Peso</button>
                       </div>
                     </div>
                     <div className="col-4 text-end">
