@@ -32,6 +32,9 @@ export const options = {
       text: 'Gráfico de evolución del peso registrado en este ejercicio por fecha',
     },
   },
+  responsive: true,
+  maintainAspectRatio: true,
+  aspectRatio: 1
 };
 
 export const Chart = ({ chartData }) => {

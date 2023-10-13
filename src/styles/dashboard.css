@@ -10602,7 +10602,7 @@ fieldset:disabled .btn {
 }
 
 .bg-primary {
-  background: linear-gradient(rgba(220, 26, 34, 0.8) 100%, rgba(220, 26, 34, 0.8)100%), url("../assets/images/background.jpg") !important;
+  background: linear-gradient(rgba(220, 26, 34, 0.8) 100%, rgba(220, 26, 34, 0.8)100%), url("../assets/images/background.webp") !important;
 }
 
 .bg-secondary {
