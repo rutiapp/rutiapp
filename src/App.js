@@ -16,6 +16,7 @@ import MyExersisesList from "./components/MyExersisesList";
 import ViewExersise from "./components/ViewExersise";
 import CreateWeight from "./components/CreateWeight";
 import { PrivateRoute } from "./components/private-route/PrivateRoute";
+import UpdateExersise from "./components/UpdateExersise";
 
 const App = () => {
 
@@ -35,25 +36,26 @@ const App = () => {
 
   return (
     <div>
-          <Routes>
-            <Route path="/" element={<Home/>} />
-            <Route path="/home" element={<Home/>} />
-            <Route path="/login" element={<Login/>} />
-            <Route path="/register" element={<SignUp/>} />
-            <Route path='dashboard' element={<PrivateRoute><Dashboard /></PrivateRoute>}>
-                    <Route path='' element={<MyDashBoard />} />
-                    <Route path='my' element={<MyDashBoard />} />
-                    <Route path='myroutines' element={<MyRoutines />} />
-                    <Route path='myexersises' element={<MyExersises />} >
-                      <Route path='' element={<MyExersisesList />} />
-                      <Route path='create' element={<CreateExersise />} />
-                      <Route path='view/:id' element={<ViewExersise />} />
-                      <Route path='addWeight/:idExersise' element={<CreateWeight />} />
-                    </Route>
-            </Route>
-            <Route path="/myroutines" element={<MyRoutines/>} />
-          </Routes>
-      </div>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<SignUp />} />
+        <Route path='dashboard' element={<PrivateRoute><Dashboard /></PrivateRoute>}>
+          <Route path='' element={<MyDashBoard />} />
+          <Route path='my' element={<MyDashBoard />} />
+          <Route path='myroutines' element={<MyRoutines />} />
+          <Route path='myexersises' element={<MyExersises />} >
+            <Route path='' element={<MyExersisesList />} />
+            <Route path='create' element={<CreateExersise />} />
+            <Route path='view/:id' element={<ViewExersise />} />
+            <Route path='addWeight/:idExersise' element={<CreateWeight />} />
+            <Route path='update/:id' element={<UpdateExersise />} />
+          </Route>
+        </Route>
+        <Route path="/myroutines" element={<MyRoutines />} />
+      </Routes>
+    </div>
   );
 };
 
