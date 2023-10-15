@@ -1,8 +1,10 @@
 import axios from "axios";
 import captchaHeader from "../services/headers/captcha-header";
+import { ENV } from '../env/env.dev'
 
-const { REACT_APP_API_HOST } = process.env
-const API_URL = REACT_APP_API_HOST+"/api/auth/"
+const REACT_APP_API_HOST = ENV.REACT_APP_API_HOST
+const API_URL = REACT_APP_API_HOST + "/api/auth/"
+
 const register = (username, email, password, name, surname, photo_url) => {
   return axios.post(API_URL + "signup", {
     username,
@@ -11,14 +13,14 @@ const register = (username, email, password, name, surname, photo_url) => {
     name,
     surname,
     photo_url,
-  }, {headers: captchaHeader()});
+  }, { headers: captchaHeader() });
 };
 const login = (username, password) => {
   return axios
     .post(API_URL + "signin", {
       username,
       password,
-    }, {headers: captchaHeader()})
+    }, { headers: captchaHeader() })
     .then((response) => {
       if (response.data.accessToken) {
         localStorage.setItem("user", JSON.stringify(response.data));

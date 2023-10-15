@@ -1,0 +1,7 @@
+{
+    "name": "RutiApp",
+    "integrations": {
+        "capacitor": {}
+    },
+    "type": "react"
+}

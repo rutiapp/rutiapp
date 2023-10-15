@@ -1,0 +1,13 @@
+{
+    "appId": "io.ionic.rutiapp",
+    "appName": "RutiApp",
+    "bundledWebRuntime": false,
+    "npmClient": "npm",
+    "webDir": "build",
+    "cordova": {},
+    "plugins": {
+        "CapacitorHttp": {
+            "enabled": true
+        }
+    }
+}
