@@ -2,9 +2,8 @@ import AuthService from "../services/auth.service"
 import { useState, useEffect, useRef } from "react"
 import { useNavigate } from "react-router-dom"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faDumbbell, faSearch } from '@fortawesome/free-solid-svg-icons'
+import { faDumbbell, faSearch, faPencil, faTrash } from '@fortawesome/free-solid-svg-icons'
 import ExersiseService from "../services/exersise.service"
-import WeightService from "../services/weight.service"
 import Input from "react-validation/build/input"
 import Form from "react-validation/build/form"
 import { trackPromise } from 'react-promise-tracker'
@@ -59,6 +58,11 @@ const MyExersisesList = () => {
     e.preventDefault()
     navigate('/dashboard/myexersises/addWeight/' + idExersise)
   }
+
+  const updateExersise = (e, idExersise) => {
+    e.preventDefault()
+    navigate('/dashboard/myexersises/update/' + idExersise)
+  }
   return (
     <div className="container-fluid py-4">
       <div className="row mb-3">
@@ -98,6 +102,8 @@ const MyExersisesList = () => {
                       </div>
                       <div>
                         <button onClick={e => addWeight(e, exersise.dataValues.id)} className="btn-rutiapp mt-2 font-very-small">Añadir Peso</button>
+                        <button onClick={e => updateExersise(e, exersise.dataValues.id)} className="btn-rutiapp mt-2 m-l-2 font-very-small"><FontAwesomeIcon icon={faPencil} size="lg" /></button>
+                        <button onClick={e => updateExersise(e, exersise.dataValues.id)} className="btn-rutiapp mt-2 m-l-2 font-very-small"><FontAwesomeIcon icon={faTrash} size="lg" /></button>
                       </div>
                     </div>
                     <div className="col-4 text-end">
