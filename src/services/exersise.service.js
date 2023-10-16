@@ -1,7 +1,8 @@
 import axios from "axios";
 import authHeader from "../services/headers/auth-header"
 import AuthService from "../services/auth.service"
-const { REACT_APP_API_HOST } = process.env
+import { ENV } from '../env/env.dev'
+const REACT_APP_API_HOST = ENV.REACT_APP_API_HOST
 const API_URL = REACT_APP_API_HOST + "/api/exersises/"
 const getAll = () => {
   return axios.get(API_URL + "findAll", { headers: authHeader() })
@@ -25,22 +26,10 @@ const create = (name, video_url, series, repetitions, help_url) => {
     creatorId
   }, { headers: authHeader() })
 }
-const update = (id, name, video_url, series, repetitions, help_url) => {
-  const creatorId = AuthService.getCurrentUser().id
-  return axios.put(API_URL + "update/" + id, {
-    name,
-    video_url,
-    series,
-    repetitions,
-    help_url,
-    creatorId
-  }, { headers: authHeader() })
-}
 const ExersiseService = {
   getAll,
   getById,
   getAllByCreator,
   create,
-  update
 }
 export default ExersiseService;

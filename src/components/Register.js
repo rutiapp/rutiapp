@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react"
+import React, { useState, useRef, useEffect } from "react"
 import Form from "react-validation/build/form"
 import Input from "react-validation/build/input"
 import CheckButton from "react-validation/build/button"
@@ -8,7 +8,7 @@ import { faEnvelope, faLock, faUser, faImage, faUsersRectangle } from '@fortawes
 import { Link } from 'react-router-dom'
 import HCaptcha from '@hcaptcha/react-hcaptcha'
 import AuthService from "../services/auth.service";
-const { REACT_APP_CAPCHA_TOKEN_EXP_SECONDS } = process.env
+import { ENV } from '../env/env.dev'
 
 const getDeleteExpired = () => {
   const itemStr = localStorage.getItem('captchaToken')
@@ -61,10 +61,10 @@ const Register = () => {
   const [successful, setSuccessful] = useState(false)
   const [message, setMessage] = useState("")
   const [loading, setLoading] = useState(false)
-  const { REACT_APP_CAPCHA_ON } = process.env
+  const REACT_APP_CAPCHA_ON = ENV.REACT_APP_CAPCHA_ON
   const [token, setToken] = useState(null);
   const captchaRef = useRef(null);
-  const ttl = REACT_APP_CAPCHA_TOKEN_EXP_SECONDS
+  const ttl = ENV.REACT_APP_CAPCHA_TOKEN_EXP_SECONDS
 
   const onChangeUsername = (e) => {
     const username = e.target.value

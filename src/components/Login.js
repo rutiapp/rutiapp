@@ -7,7 +7,7 @@ import AuthService from "../services/auth.service"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faLock, faLongArrowRight } from '@fortawesome/free-solid-svg-icons'
 import HCaptcha from '@hcaptcha/react-hcaptcha'
-const { REACT_APP_CAPCHA_TOKEN_EXP_SECONDS } = process.env
+import { ENV } from '../env/env.dev'
 const Login = () => {
   let navigate = useNavigate()
   const form = useRef()
@@ -19,7 +19,7 @@ const Login = () => {
   const [attempts, setAttempts] = useState(0)
   const [token, setToken] = useState(null)
   const captchaRef = useRef(null);
-  const ttl = REACT_APP_CAPCHA_TOKEN_EXP_SECONDS
+  const ttl = ENV.REACT_APP_CAPCHA_TOKEN_EXP_SECONDS
   const getDeleteExpired = () => {
     const itemStr = localStorage.getItem('captchaToken')
     if (!itemStr) {
